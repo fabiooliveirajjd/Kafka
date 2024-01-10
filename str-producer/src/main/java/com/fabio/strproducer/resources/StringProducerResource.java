@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/producer")
 public class StringProducerResource {
-
+    //Instancia o StringProducerService
     private final StringProducerService producerService;
+
     @PostMapping
-    public ResponseEntity<?> sendMessage (@RequestBody String message){
-        producerService.sendMessage(message);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    //Cria um novo endpoint
+    public ResponseEntity<?> sendMessage(@RequestBody String message) {//Recebe uma mensagem
+        producerService.sendMessage(message);//Envia a mensagem
+        return ResponseEntity.status(HttpStatus.CREATED).build();//Retorna o status 201
     }
-
-
 }

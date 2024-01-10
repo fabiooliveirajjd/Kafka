@@ -15,21 +15,23 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @Configuration
 public class StringProducerFactoryConfig {
-
-    private  final KafkaProperties properties;
+    //Instancia o KafkaProperties
+    private final KafkaProperties properties;
 
     @Bean
-    public ProducerFactory<String, String> producerFactory(){
-        var configs = new HashMap<String, Object>();
-        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configs);
+    //Cria um novo ProducerFactory
+    public ProducerFactory<String, String> producerFactory() {
+        var configs = new HashMap<String, Object>();//Cria um HashMap
+        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());//Adiciona o endereço do Kafka
+        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);//Adiciona o serializador da chave
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);//Adiciona o serializador do valor
+        return new DefaultKafkaProducerFactory<>(configs);//Retorna o ProducerFactory
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory){
-        return new KafkaTemplate<>(producerFactory());
+    //Cria um novo KafkaTemplate
+    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
+        return new KafkaTemplate<>(producerFactory());//Retorna o KafkaTemplate
     }
 
 
